@@ -253,10 +253,12 @@ ngx_vslprintf(u_char *buf, u_char *last, const char *fmt, va_list args)
                 p = va_arg(args, u_char *);
 
                 if (slen == (size_t) -1) {
+                    ngx_uint_t i=0;
                     while (*p && buf < last) {
                         *buf++ = *p++;
+                        i++;
                     }
-
+                    while (i++<width) *buf++=' ';
                 } else {
                     len = ngx_min(((size_t) (last - buf)), slen);
                     buf = ngx_cpymem(buf, p, len);
